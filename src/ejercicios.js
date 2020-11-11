@@ -7,7 +7,8 @@ export function soloPares(array) {
 }
 
 export function moverALaDerecha(array) {
-  return [array[array.length - 1], ...array.splice(0, array.length - 1)];
+  const lastItem = array.length - 1;
+  return [array[lastItem], ...array.slice(0, lastItem)];
 }
 
 export function soloUnaPalabra(array) {
@@ -19,10 +20,21 @@ export function soloArraysPositivos(array) {
 }
 
 export function soloVocales(array) {
-  return array.map(word => [...word].filter(letter => letter.match(/a|e|i|o|u/)).join(""));
+  const vocals = /a|e|i|o|u/;
+  return array.map(word => [...word].filter(letter => letter.match(vocals)).join(""));
 }
 
 export function todasVocalesIguales(array) {
+  const vocals = /a|e|i|o|u/;
+  return array.filter(
+    word =>
+      [...word]
+        .filter(letter => letter.match(vocals))
+        .filter((letter, pos, self) => {
+          return self.indexOf(letter) === pos;
+        })
+        .join("").length === 1
+  );
 }
 
 export function duplicarMatriz(array) {
